@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      admim: {
+      admin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false,
@@ -42,7 +42,7 @@ module.exports = {
 
 },
 
-  async down(queryInterface) {
+   down: async (queryInterface) => {
 
   await queryInterface.dropTable('users')
 
