@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 import User from "../models/User"
 import Product from '../models/Product'
 import { response } from 'express'
+import Category from '../models/Category'
 
 
 class ProductsController{
@@ -19,7 +20,7 @@ class ProductsController{
             return response.status(400).json({error: err.errors })
         }
 
-        const {fieldname: path} = request.file
+        const {filename: path} = request.file
         const{name,price,category_id}= request.body
 
         const product = await Product.create({
@@ -33,7 +34,15 @@ class ProductsController{
     }
 
     async index(request, response){
-        const products = await Product.findAll()
+        const products = await Product.findAll({
+            include:[
+                {
+                    model: Category,
+                    as: 'category',
+                    attributes:['id','name']
+                }
+            ]
+        })
 
         return response.json(products)
 
