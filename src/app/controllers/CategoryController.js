@@ -18,6 +18,11 @@ class CategoryController {
             return response.status(400).json({ error: err.errors })
         }
 
+        const { admin: isAdmin} = await User.findByPk(request.userId)
+
+        if(!isAdmin){
+            return response.status(401).json()
+        }
 
         const { name } = request.body
 
@@ -34,7 +39,7 @@ class CategoryController {
 
         })
 
-        return response.json(category)
+        return response.json({name, id})//ou category
     
     }
 
