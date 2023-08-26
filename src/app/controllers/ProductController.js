@@ -99,7 +99,7 @@ class ProductsController {
 
             const { name, price, category_id, offer } = request.body
 
-            await Product.create({
+            await Product.update({
                 name,
                 price,
                 category_id,
@@ -110,7 +110,9 @@ class ProductsController {
             )
 
             return response.status(200).json()
-        } catch { }
+        } catch {err}{
+            console.log(err)
+        }
     }
 
 
